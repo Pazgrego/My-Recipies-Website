@@ -1,0 +1,19 @@
+{
+  "name": "My-Recipies-Website-master",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "description": "Paz loves cake",
+  "main": "HomePageJS.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

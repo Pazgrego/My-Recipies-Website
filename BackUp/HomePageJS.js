@@ -1,6 +1,5 @@
-var module = require('module');
 
-let Fav = (event) => {
+var Fav = (event) => {
     event = event|| window.event;
     //console.log(e.target);
  if(event.target.getAttribute("src") == ".\\image\\emptyHeart.icon") {
@@ -12,17 +11,12 @@ let Fav = (event) => {
     }
 }
 
-const openModal = () => {
- let modal = document.getElementById('popup1');
- modal.style.visibility = "visible";
+function openModal() {
+
 }
 
-const closeModal = () => {
- let modal = document.getElementById('popup1');
- modal.style.visibility = "hidden";
-} 
-
 function limitText(someText, maxLength) {
+
     if (someText.length > maxLength) {
         someText = someText.substr(0,maxLength) + '...';
     }
@@ -79,37 +73,26 @@ const chocolatechipCookies = new recipies('chocolate chip cookies', ".\\image\\C
     'https://www.handletheheat.com/bakery-style-chocolate-chip-cookies/');
 
 
-//TODO: export this object
-//export {chocolatechipCookies};
-//module.exports = chocolatechipCookies;
-
-
-const lasagna = new recipies('Lasagna', ".\\image\\5167-Lasagne-Autentico.jpg", 
-"1 pound sweet Italian sausage3/4 pound lean ground beef1/2 cup minced onion2 cloves garlic, crushed1 (28 ounce) can crushed tomatoes2 (6 ounce) cans tomato paste2 (6.5 ounce) cans canned tomato sauce1/2 cup water2 tablespoons white sugar1 1/2 teaspoons dried basil leaves1/2 teaspoon fennel seeds1 teaspoon Italian seasoning1 tablespoon salt1/4 teaspoon ground black pepper4 tablespoons chopped fresh parsley12 lasagna noodles16 ounces ricotta cheese1 egg1/2 teaspoon salt3/4 pound mozzarella cheese, sliced3/4 cup grated Parmesan cheese"
-,"In a Dutch oven, cook sausage, ground beef, onion, and garlic over medium heat until well browned. Stir in crushed tomatoes, tomato paste, tomato sauce, and water. Season with sugar, basil, fennel seeds, Italian seasoning, 1 tablespoon salt, pepper, and 2 tablespoons parsley. Simmer, covered, for about 1 1/2 hours, stirring occasionally. Bring a large pot of lightly salted water to a boil. Cook lasagna noodles in boiling water for 8 to 10 minutes. Drain noodles, and rinse with cold water. In a mixing bowl, combine ricotta cheese with egg, remaining parsley, and 1/2 teaspoon salt. Preheat oven to 375 degrees F (190 degrees C). To assemble, spread 1 1/2 cups of meat sauce in the bottom of a 9x13 inch baking dish. Arrange 6 noodles lengthwise over meat sauce. Spread with one half of the ricotta cheese mixture. Top with a third of mozzarella cheese slices. Spoon 1 1/2 cups meat sauce over mozzarella, and sprinkle with 1/4 cup Parmesan cheese. Repeat layers, and top with remaining mozzarella and Parmesan cheese. Cover with foil: to prevent sticking, either spray foil with cooking spray, or make sure the foil does not touch the cheese. Bake in preheated oven for 25 minutes.Remove foil, and bake an additional 25 minutes. Cool for 15 minutes before serving.",
- "https://www.allrecipes.com/recipe/23600/worlds-best-lasagna/");
-
-
-    function saveRecipe() {
+function saveRecipe() {
     let  newTitleRecipe = document.getElementById("titleRecipe").value;
     let  newIngredientsRecipe = document.getElementById("ingredientsRecipe").value;
     let newInstructionsRecipe = document.getElementById("instructionsRecipe").value;
     let  newSourceRecipe = document.getElementById("sourceRecipe").value;
     let  newImageRecipe = document.getElementById("imageRecipe").value;
     const newRecipe = new recipies(newTitleRecipe,newImageRecipe, newIngredientsRecipe, newInstructionsRecipe, newSourceRecipe);
-    //Try the function is work
     console.log(newRecipe);
     return newRecipe;
 }
 
 
-
-// invoke this function onclick of save button
-/*function writeToJSON(newRecipe) {
+function writeToJSON(newRecipe) {
     let myJSON = JSON.stringify(newRecipe);
     let tryPushJSON = JSON.parse(myJSON);
     console.log(tryPushJSON);
-}*/
+
+}
+
+
 
 // TODO: check why this disappear the new recipe container
 /*let data = JSON.parse(chocolatechipCookies.toString());
@@ -118,41 +101,38 @@ JSON.parse(chocolatechipCookies.ingredients);
 JSON.parse(chocolatechipCookies.instructions);
 JSON.parse(chocolatechipCookies.source);*/
 
-//function createRecipeContainer () {
-    const containerRecipe =  document.createElement('div');
-    document.getElementById("allRecipe").appendChild(containerRecipe);
-    containerRecipe.className = "containerRecipe";
+const containerRecipe =  document.createElement('div');
+document.getElementById("allRecipe").appendChild(containerRecipe);
+containerRecipe.className = "containerRecipe";
 
-    const recipeInfo =  document.createElement('div');
-    containerRecipe.appendChild(recipeInfo);
-    recipeInfo.className = "recipeInfo";
+const recipeInfo =  document.createElement('div');
+containerRecipe.appendChild(recipeInfo);
+recipeInfo.className = "recipeInfo";
 
-    const headRecipe =  document.createElement('span');
-    recipeInfo.appendChild(headRecipe);
-    headRecipe.className = "headRecipe";
+const headRecipe =  document.createElement('span');
+recipeInfo.appendChild(headRecipe);
+headRecipe.className = "headRecipe";
 
-    const imageRecipe =  document.createElement('img');
-    recipeInfo.appendChild(imageRecipe);
-    imageRecipe.className = "imageRecipe";
+const imageRecipe =  document.createElement('img');
+recipeInfo.appendChild(imageRecipe);
+imageRecipe.className = "imageRecipe";
 
-    const paragraphRecipe =  document.createElement('p');
-    recipeInfo.appendChild(paragraphRecipe);
-    paragraphRecipe.className = "paragraphRecipe";
+const paragraphRecipe =  document.createElement('p');
+recipeInfo.appendChild(paragraphRecipe);
+paragraphRecipe.className = "paragraphRecipe";
 
-    const linkRecipe =  document.createElement('a');
-    recipeInfo.appendChild(linkRecipe);
-    linkRecipe.className = "linkRecipe";
+const linkRecipe =  document.createElement('a');
+recipeInfo.appendChild(linkRecipe);
+linkRecipe.className = "linkRecipe";
 
-    const spanLink =  document.createElement('span');
-    linkRecipe.appendChild(spanLink);
-    spanLink.className = "spanLink";
+const spanLink =  document.createElement('span');
+linkRecipe.appendChild(spanLink);
+spanLink.className = "spanLink";
 
-    const favImage = document.createElement('img');
-    recipeInfo.appendChild(favImage);
-    favImage.className = "clearHeart";
-//}
+const favImage = document.createElement('img');
+recipeInfo.appendChild(favImage);
+favImage.className = "clearHeart";
 
-//this.createRecipeContainer();
 
 headRecipe.innerHTML = chocolatechipCookies.title;
 imageRecipe.src = chocolatechipCookies.image;
@@ -163,5 +143,3 @@ favImage.src = chocolatechipCookies.emptySignFav;
 favImage.title = "Mark as favorite";
 // TODO: add Fav function to this image
 favImage.onclick = Fav;
-
-//TODO: add more recipe with the new method
