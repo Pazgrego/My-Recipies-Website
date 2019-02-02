@@ -1,4 +1,4 @@
-var module = require('module');
+//var module = require('module');
 
 let Fav = (event) => {
     event = event|| window.event;
@@ -15,12 +15,12 @@ let Fav = (event) => {
 const openModal = () => {
  let modal = document.getElementById('popup1');
  modal.style.visibility = "visible";
-}
+};
 
 const closeModal = () => {
  let modal = document.getElementById('popup1');
  modal.style.visibility = "hidden";
-} 
+};
 
 function limitText(someText, maxLength) {
     if (someText.length > maxLength) {

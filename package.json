@@ -5,6 +5,8 @@
     "express": "^4.16.4"
   },
   "devDependencies": {
+    "@types/jasmine": "^3.3.8",
+    "@types/node": "^10.12.21",
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0"
   },
