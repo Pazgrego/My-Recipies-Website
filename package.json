@@ -2,16 +2,21 @@
   "name": "My-Recipies-Website-master",
   "version": "0.0.1",
   "dependencies": {
+    "babel-install": "^2.1.0",
     "express": "^4.16.4"
   },
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
     "@types/jasmine": "^3.3.8",
     "@types/node": "^10.12.21",
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "babel HomePage -d lib & node server.js",
+    "build": "babel HomePage -d lib"
   },
   "description": "Paz loves cake",
   "main": "HomePageJS.js",
@@ -19,3 +24,4 @@
   "author": "",
   "license": "ISC"
 }
+

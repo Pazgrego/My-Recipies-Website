@@ -32,7 +32,7 @@ const listening = () => {
 
 
 // Run the project just with Node JS - Html&Css&JS
-app.use(express.static('HomePage'));
+app.use(express.static('lib'));
 
 // get all recipes
 app.get('/api/Recipes', (req, res) => {
@@ -45,6 +45,9 @@ app.get('api/Recipes/:id', (req, res) => {
 });
 
 var server = app.listen(port, listening);
+
+
+
 
 const fs = require('fs');
 

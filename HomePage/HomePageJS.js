@@ -1,4 +1,3 @@
-//var module = require('module');
 
 let Fav = (event) => {
     event = event|| window.event;
@@ -90,7 +89,7 @@ const lasagna = new recipies('Lasagna', ".\\image\\5167-Lasagne-Autentico.jpg",
  "https://www.allrecipes.com/recipe/23600/worlds-best-lasagna/");
 
 
-    function saveRecipe() {
+function saveRecipe() {
     let  newTitleRecipe = document.getElementById("titleRecipe").value;
     let  newIngredientsRecipe = document.getElementById("ingredientsRecipe").value;
     let newInstructionsRecipe = document.getElementById("instructionsRecipe").value;
@@ -99,6 +98,11 @@ const lasagna = new recipies('Lasagna', ".\\image\\5167-Lasagne-Autentico.jpg",
     const newRecipe = new recipies(newTitleRecipe,newImageRecipe, newIngredientsRecipe, newInstructionsRecipe, newSourceRecipe);
     //Try the function is work
     console.log(newRecipe);
+
+    http.get("localhost:8080/api/recipes", (res) => {
+       console.log(res.statusMessage);
+    });
+
     return newRecipe;
 }
 
