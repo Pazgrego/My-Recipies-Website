@@ -1,5 +1,5 @@
 
-//import saveRecipe from "./HomePageJS.js";
+//import saveRecipe from "./controller.js";
 //var page = require('./HomePageJS');
 //var http = require('http');
 //var fs = require('fs');
@@ -18,8 +18,8 @@
 const port = process.env.PORT || 8080;
 console.log('Server is starting....');
 
-var express = require('express');
-var app = express();
+let express = require('express');
+let app = express();
 
 const Recipes = [
     {id: 1, name: 'TheFirst'},
@@ -29,7 +29,6 @@ const Recipes = [
 const listening = () => {
     console.log(`Listening to port ${port}....`)
 };
-
 
 // Run the project just with Node JS - Html&Css&JS
 app.use(express.static('lib'));
@@ -44,9 +43,7 @@ app.get('api/Recipes/:id', (req, res) => {
     res.send(req.params.id);
 });
 
-var server = app.listen(port, listening);
-
-
+let server = app.listen(port, listening);
 
 
 const fs = require('fs');
