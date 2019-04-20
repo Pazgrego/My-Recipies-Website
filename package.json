@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "dependencies": {
     "babel-install": "^2.1.0",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "socket.io": "^2.2.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -15,13 +16,12 @@
     "babel-register": "^6.26.0"
   },
   "scripts": {
-    "start": "babel HomePage -d lib & node server.js",
-    "build": "babel HomePage -d lib"
+    "start": "babel HomePage -d lib --copy-files & nodemon server.js",
+    "build": "babel HomePage -d lib --copy-files"
   },
-  "description": "Paz loves cake",
-  "main": "HomePageJS.js",
+  "description": "Paz loves cakes",
+  "main": "controller.js",
   "keywords": [],
   "author": "",
   "license": "ISC"
 }
-

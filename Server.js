@@ -1,19 +1,3 @@
-
-//import saveRecipe from "./controller.js";
-//var page = require('./HomePageJS');
-//var http = require('http');
-//var fs = require('fs');
-
-
-/*http.createServer(function(request, response) {
-    response.writeHeader(200, {"Content-Type": "text/html"});
-    const stream = fs.createReadStream( './index.html');
-    stream.read(0);
-    //response.write('paaazzz');
-    response.end();
-}).listen(8080);*/
-
-
 // Set environment variable of port
 const port = process.env.PORT || 8080;
 console.log('Server is starting....');
@@ -35,16 +19,16 @@ app.use(express.static('lib'));
 
 // get all recipes
 app.get('/api/Recipes', (req, res) => {
-    res.send([1, 2, 3]);
+   /* let allRecipes = fs.readFileSync('recipies.json');*/
+    res.send(data);
 });
 
 //get specific recipe
-app.get('api/Recipes/:id', (req, res) => {
-    res.send(req.params.id);
+app.get('/api/Recipes/:id', (req, res) => {
+    res.send(data);
 });
 
 let server = app.listen(port, listening);
-
 
 const fs = require('fs');
 
@@ -54,47 +38,17 @@ let RecipeJSON= {
     name: 'Brownies Cookies',
     Difficulty: 3
 };
-
+/*
 let data = JSON.stringify(RecipeJSON);
-fs.writeFileSync('recipies.json', data);
+fs.writeFileSync('recipies.json', data);*/
 
 
-/*http.createServer (function (req,res){
-    fs.readFile('recipies.json', function(err, data){
-        res.writeHead(200, {'Content-Type': 'text/html'});
-        res.write(data);
-        res.end();
-    });
-}).listen(8080);*/
-
-/*//Use express
-const express = require('express');
-const app = express();
-
-app.get('/paz', (req, res) => {
-    res.send('Pazzzzz');
-}).listen(8080, () => {console.log('listening to port 8080....')});*/
-
-
-/*fs.appendFile('recipies.json', 'Add Context', function(err) {
-    if (err) throw err;
-    console.log('Saved!');
+let io = require('socket.io')(server);
+io.on('connection', function(socket){
+   socket.on('addRecipe', function(recipe){
+       let data = JSON.stringify(recipe);
+       fs.writeFileSync('recipies.json', data);
+       console.log("roy hakarziya");
+   });
 });
-
-fs.writeFile('recipies.json', 'Recplaced?', function(err){
-    if (err) throw err;
-    console.log('Saved!');
-});*/
-
-   // fs = require('fs');
-/*fs.readFile('./index.html', function (err, html) {
-    if (err) {
-        th row err;
-    }
-    http.createServer(function(request, response) {
-        response.writeHeader(200, {"Content-Type": "text/html"});
-        response.write(html);
-        response.end();
-    }).listen(8080);
-});*/
 
