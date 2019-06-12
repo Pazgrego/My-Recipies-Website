@@ -3,7 +3,10 @@
   "version": "0.0.1",
   "dependencies": {
     "babel-install": "^2.1.0",
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
+    "fetch": "^1.1.0",
+    "mongodb": "^3.2.7",
     "socket.io": "^2.2.0"
   },
   "devDependencies": {
@@ -13,10 +16,11 @@
     "@types/jasmine": "^3.3.8",
     "@types/node": "^10.12.21",
     "babel-preset-env": "^1.7.0",
-    "babel-register": "^6.26.0"
+    "babel-register": "^6.26.0",
+    "nodemon": "^1.19.1"
   },
   "scripts": {
-    "start": "babel HomePage -d lib --copy-files & nodemon server.js",
+    "start": "babel HomePage -d lib --copy-files & nodemon Server.js",
     "build": "babel HomePage -d lib --copy-files"
   },
   "description": "Paz loves cakes",

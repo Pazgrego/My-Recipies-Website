@@ -1,13 +1,26 @@
+const getRecipies = () => {
+    fetch('/allRecipies', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    }).then(res => res.json())
+        .then(data => {
+            for(let x of data){
+                console.log(x);
+            }
+        }).
+    catch(error => console.log(error));
+};
 
 let Fav = (event) => {
     event = event|| window.event;
 
- if(event.target.getAttribute("src") == ".\\image\\emptyHeart.icon") {
+ if(event.target.getAttribute("src") === ".\\image\\emptyHeart.icon") {
      event.target.src = ".\\image\\fillHeart.icon";
     }
     else {
      event.target.src = ".\\image\\emptyHeart.icon";
-
     }
 };
 
@@ -79,31 +92,42 @@ const chocolatechipCookies = new recipies('chocolate chip cookies', ".\\image\\C
 
 
 function saveRecipe() {
-    let  newTitleRecipe = document.getElementById("titleRecipe").value;
-    let  newIngredientsRecipe = document.getElementById("ingredientsRecipe").value;
+    let newTitleRecipe = document.getElementById("titleRecipe").value;
+    let newIngredientsRecipe = document.getElementById("ingredientsRecipe").value;
     let newInstructionsRecipe = document.getElementById("instructionsRecipe").value;
-    let  newSourceRecipe = document.getElementById("sourceRecipe").value;
-    let  newImageRecipe = document.getElementById("imageRecipe").value;
-    const newRecipe = new recipies(newTitleRecipe,newImageRecipe, newIngredientsRecipe, newInstructionsRecipe, newSourceRecipe);
-    //Try if the function is work
+    let newSourceRecipe = document.getElementById("sourceRecipe").value;
+    let newImageRecipe = document.getElementById("imageRecipe").value;
+    const newRecipe = new recipies(newTitleRecipe, newImageRecipe, newIngredientsRecipe, newInstructionsRecipe, newSourceRecipe);
+
     console.log(newRecipe);
+    createRecipeContainer(newRecipe);
+    fetch('/insert', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newRecipe)
+    }).then(function (res) {
+        res.status(200).send("success")
+    }).catch(error =>  console.log("error"));
 
-    let socket = io();
 
-    socket.on('connect', function() {
-        socket.emit('addRecipe', newRecipe);
-    });
+   /* fetch('/api/Recipes', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newRecipe)
+    })
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (myJson) {
+    console.log(myJson);
+    });*/
 }
 
-
-// TODO: check why this disappear the new recipe container
-let data = JSON.parse(chocolatechipCookies.toString());
-JSON.parse(chocolatechipCookies.image);
-JSON.parse(chocolatechipCookies.ingredients);
-JSON.parse(chocolatechipCookies.instructions);
-JSON.parse(chocolatechipCookies.source);
-
-function createRecipeContainer () {
+function createRecipeContainer (recipe) {
     const containerRecipe =  document.createElement('div');
     document.getElementById("allRecipe").appendChild(containerRecipe);
     containerRecipe.className = "containerRecipe";
@@ -112,41 +136,40 @@ function createRecipeContainer () {
     containerRecipe.appendChild(recipeInfo);
     recipeInfo.className = "recipeInfo";
 
-    const headRecipe =  document.createElement('span');
-    recipeInfo.appendChild(headRecipe);
-    headRecipe.className = "headRecipe";
+    const title =  document.createElement('span');
+    recipeInfo.appendChild(title);
+    title.className = "title";
+    title.innerHTML = recipe.title;
 
     const imageRecipe =  document.createElement('img');
     recipeInfo.appendChild(imageRecipe);
     imageRecipe.className = "imageRecipe";
+    imageRecipe.src = recipe.image;
 
     const paragraphRecipe =  document.createElement('p');
     recipeInfo.appendChild(paragraphRecipe);
     paragraphRecipe.className = "paragraphRecipe";
+    paragraphRecipe.innerHTML = limitText((recipe.instructions), 300);
 
     const linkRecipe =  document.createElement('a');
     recipeInfo.appendChild(linkRecipe);
     linkRecipe.className = "linkRecipe";
+    linkRecipe.href = "";
+
 
     const spanLink =  document.createElement('span');
     linkRecipe.appendChild(spanLink);
     spanLink.className = "spanLink";
+    spanLink.innerHTML = "Full recipe";
+
 
     const favImage = document.createElement('img');
     recipeInfo.appendChild(favImage);
     favImage.className = "clearHeart";
-}
-
-createRecipeContainer();
-
-headRecipe.innerHTML = chocolatechipCookies.title;
-imageRecipe.src = chocolatechipCookies.image;
-paragraphRecipe.innerHTML = limitText((chocolatechipCookies.instructions), 300);
-linkRecipe.href = "";
-spanLink.innerHTML = "Full recipe";
-favImage.src = chocolatechipCookies.emptySignFav;
-favImage.title = "Mark as favorite";
+    favImage.src = recipe.emptySignFav;
+    favImage.title = "Mark as favorite";
 // TODO: add Fav function to this image
-favImage.onclick = Fav;
+    favImage.onclick = Fav;
+}
 
 //TODO: add more recipe with the new method

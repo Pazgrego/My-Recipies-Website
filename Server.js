@@ -2,30 +2,80 @@
 const port = process.env.PORT || 8080;
 console.log('Server is starting....');
 
+const bodyParser = require('body-parser');
 let express = require('express');
 let app = express();
+let router = express.Router();
 
-const Recipes = [
-    {id: 1, name: 'TheFirst'},
-    {id: 2, name: 'TheSecond'},
-];
+let mongo = require('mongodb');
+let assert = require('assert');
+
+let url =  'mongodb://localhost:27017/PazRecipies';
 
 const listening = () => {
     console.log(`Listening to port ${port}....`)
 };
 
-// Run the project just with Node JS - Html&Css&JS
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Run the project with Node JS - Html&Css&JS
 app.use(express.static('lib'));
 
 // get all recipes
+/*
 app.get('/api/Recipes', (req, res) => {
-   /* let allRecipes = fs.readFileSync('recipies.json');*/
-    res.send(data);
+   /!* let allRecipes = fs.readFileSync('recipies.json');*!/
+    res.send(JSON.stringify({paz: "paz"}));
+});
+*/
+const pazRecipiesDb = "PazRecipies";
+const recipesCollection = "recipes";
+
+app.post('/insert', (req, res) => {
+    mongo.connect(url, function(err, db){
+        /*assert.equal(null, err);*/
+        if (err) throw err;
+
+        const dbo = db.db(pazRecipiesDb);
+
+        dbo.collection("recipes").insertOne(req.body, function (err, res) {
+            if (err) throw err;
+            console.log("1 document inserted");
+            db.close();
+        });
+    });
+
+    res.status(200);
+});
+
+app.get('/allRecipies', (req, res) => {
+    mongo.connect(url, (err, db) => {
+       if(err) throw err;
+
+        const dbo = db.db(pazRecipiesDb);
+
+       dbo.collection(recipesCollection).find().toArray((err, data) => {
+          /* console.log(data);*/
+           res.send(data);
+
+       });
+    })
 });
 
 //get specific recipe
 app.get('/api/Recipes/:id', (req, res) => {
     res.send(data);
+});
+
+app.put('/api/Recipes', (req, res) => {
+    console.log("paz");
+    // TODO: Add recipe to json file
+    console.log(req.body);
+    fs.appendFileSync('recipies.json', JSON.stringify(req.body), function (err) {
+        console.log(err);
+    });
+    res.json("Sdfv");
 });
 
 let server = app.listen(port, listening);
@@ -48,7 +98,5 @@ io.on('connection', function(socket){
    socket.on('addRecipe', function(recipe){
        let data = JSON.stringify(recipe);
        fs.writeFileSync('recipies.json', data);
-       console.log("roy hakarziya");
-   });
+   })
 });
-
