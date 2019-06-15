@@ -7,7 +7,7 @@ const getRecipies = () => {
     }).then(res => res.json())
         .then(data => {
             for(let x of data){
-                console.log(x);
+               createRecipeContainer(x);
             }
         }).
     catch(error => console.log(error));
@@ -66,29 +66,13 @@ class recipies {
     get source () {
         return this._source;
     }
-    get emptySignFav () {
+    static get emptySignFav () {
         return ".\\image\\emptyHeart.icon";
     }
-    get fullSingFav (){
+    static get fullSingFav (){
         return ".\\image\\fillHeart.icon";
     }
 }
-
-const chocolatechipCookies = new recipies('chocolate chip cookies', ".\\image\\ChocolateChipsCookies.jpg", "1 cup butter, softened1 cup white sugar1 cup packed brown sugar2 eggs2 teaspoons vanilla extract1 teaspoon baking soda2 teaspoons hot water1/2 teaspoon salt3 cups all-purpose flour2 cups semisweet chocolate chips1 cup chopped walnuts",
-    'Preheat oven to 350ºF. Line baking sheets with parchment paper.\n' +
-    '\n' +
-    'In a medium bowl combine the flour, baking soda, and salt.\n' +
-    '\n' +
-    'In the bowl of an electric mixer beat the butter, granulated sugar, and brown sugar until creamy, about 2 minutes. Add the vanilla and eggs. Gradually beat in the flour mixture. Stir in the chocolate chips.\n' +
-    '\n' +
-    'If time permits, wrap dough in plastic wrap and refrigerate for at least 24 hours but no more than 72 hours. This allows the dough to “marinate” and makes the cookies thicker, chewier, and more flavorful. Let dough sit at room temperature just until it is soft enough to scoop.\n' +
-    '\n' +
-    'Divide the dough into 3-tablespoon sized balls using a large cookie scoop and drop onto prepared baking sheets.\n' +
-    '\n' +
-    'Bake for 12-15 minutes, or until golden brown. Cool for 5 minutes before removing to wire racks to cool completely.\n' +
-    '\n' +
-    'Although I prefer cookies fresh from the oven, these can be stored in an airtight container for up to 5 days. See post for storage tips.',
-    'https://www.handletheheat.com/bakery-style-chocolate-chip-cookies/');
 
 
 function saveRecipe() {
@@ -139,17 +123,20 @@ function createRecipeContainer (recipe) {
     const title =  document.createElement('span');
     recipeInfo.appendChild(title);
     title.className = "title";
-    title.innerHTML = recipe.title;
+    title.innerHTML = recipe._title;
 
     const imageRecipe =  document.createElement('img');
     recipeInfo.appendChild(imageRecipe);
     imageRecipe.className = "imageRecipe";
-    imageRecipe.src = recipe.image;
+    imageRecipe.src = recipe._image;
 
     const paragraphRecipe =  document.createElement('p');
     recipeInfo.appendChild(paragraphRecipe);
     paragraphRecipe.className = "paragraphRecipe";
-    paragraphRecipe.innerHTML = limitText((recipe.instructions), 300);
+    paragraphRecipe.innerHTML = recipe._instructions;
+
+    //function limitText Doesnt work as well
+    /*paragraphRecipe.innerHTML = limitText((recipe.instructions), 300);*/
 
     const linkRecipe =  document.createElement('a');
     recipeInfo.appendChild(linkRecipe);
@@ -166,7 +153,7 @@ function createRecipeContainer (recipe) {
     const favImage = document.createElement('img');
     recipeInfo.appendChild(favImage);
     favImage.className = "clearHeart";
-    favImage.src = recipe.emptySignFav;
+    favImage.src = recipies.emptySignFav;
     favImage.title = "Mark as favorite";
 // TODO: add Fav function to this image
     favImage.onclick = Fav;
