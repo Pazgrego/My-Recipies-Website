@@ -4,6 +4,7 @@
   "dependencies": {
     "babel-install": "^2.1.0",
     "body-parser": "^1.18.3",
+    "ecstatic": "^4.1.2",
     "express": "^4.16.4",
     "fetch": "^1.1.0",
     "mongodb": "^3.2.7",

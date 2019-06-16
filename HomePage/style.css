@@ -113,6 +113,7 @@ body{
 .title {
     font-size: 30px;
     font-family:  'Amatic SC', cursive;
+    font-weight: bold;
 }
 
 .recipeInfo {
@@ -229,3 +230,11 @@ justify-content: center;
     text-overflow: ellipsis;
 }*/
 
+.paragraphRecipe {
+    max-height: 140px;
+    overflow: hidden;
+    width: 200px;
+    margin-top: 0.6em;
+    margin-bottom: 0.3em;
+    line-height: 1.3;
+}

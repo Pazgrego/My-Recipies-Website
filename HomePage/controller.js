@@ -36,7 +36,10 @@ const closeModal = () => {
 
 function limitText(someText, maxLength) {
     if (someText.length > maxLength) {
-        someText = someText.substr(0,maxLength) + '...';
+        someText = someText.substring(0,maxLength) + '...';
+    }
+    else {
+        someText = someText + "...";
     }
     return someText;
 }
@@ -55,7 +58,7 @@ class recipies {
         return this._title;
     }
     get image() {
-        return this._image;
+        return ("http://127.0.0.1:5656/" + this._image);
     }
     get ingredients() {
         return this._ingredients;
@@ -133,15 +136,13 @@ function createRecipeContainer (recipe) {
     const paragraphRecipe =  document.createElement('p');
     recipeInfo.appendChild(paragraphRecipe);
     paragraphRecipe.className = "paragraphRecipe";
-    paragraphRecipe.innerHTML = recipe._instructions;
-
-    //function limitText Doesnt work as well
-    /*paragraphRecipe.innerHTML = limitText((recipe.instructions), 300);*/
+    paragraphRecipe.innerHTML = limitText((recipe._instructions), 200);
+    paragraphRecipe.dir = "rtl";
 
     const linkRecipe =  document.createElement('a');
     recipeInfo.appendChild(linkRecipe);
     linkRecipe.className = "linkRecipe";
-    linkRecipe.href = "";
+    linkRecipe.href = recipe._source;
 
 
     const spanLink =  document.createElement('span');
